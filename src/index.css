@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-sans bg-brand-dark text-brand-textLight overflow-x-hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif text-brand-white;
+  }
+  
+  ::selection {
+    @apply bg-brand-gold text-white;
+  }
+  ::-moz-selection {
+    @apply bg-brand-gold text-white;
+  }
+}
+
+/* Custom Scrollbar for Dark Theme */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #121212;
+}
+::-webkit-scrollbar-thumb {
+  background: #FF5722;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E64A19;
+}
