@@ -67,9 +67,16 @@ export function MenuProvider({ children }) {
     await deleteDoc(doc(db, 'categories', categoryName));
   };
 
+  const updateMenuItem = async (id, updatedItem) => {
+    await setDoc(doc(db, 'menu', String(id)), updatedItem, { merge: true });
+    if (!categories.includes(updatedItem.category)) {
+      addCategory(updatedItem.category);
+    }
+  };
+
   return (
     <MenuContext.Provider value={{ 
-      menuItems, categories, addMenuItem, deleteMenuItem, addCategory, deleteCategory, loading
+      menuItems, categories, addMenuItem, updateMenuItem, deleteMenuItem, addCategory, deleteCategory, loading
     }}>
       {children}
     </MenuContext.Provider>

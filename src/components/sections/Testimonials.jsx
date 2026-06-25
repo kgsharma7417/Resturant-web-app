@@ -1,113 +1,93 @@
-import { useState, useEffect } from 'react';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const reviews = [
   {
-    id: 1,
-    name: "Aarti Desai",
-    rating: 5,
-    text: "Absolutely stunning ambiance and the food is out of this world. The Dal Makhani is exactly how it should be - creamy and rich.",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80"
+    name: "Vikram S.",
+    role: "Food Critic",
+    content: "An absolute masterpiece of culinary art. The ambience transports you to a royal era, and every bite is infused with authentic, rich flavors. 10/10.",
+    rating: 5
   },
   {
-    id: 2,
-    name: "Vikram Singh",
-    rating: 5,
-    text: "Best Butter Chicken in Delhi, hands down! The service was prompt and the staff was extremely courteous. Highly recommend.",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80"
+    name: "Priya R.",
+    role: "Local Guide",
+    content: "The best dining experience I've had this year. Their signature dishes are simply phenomenal. You must try the chef's specials!",
+    rating: 5
   },
   {
-    id: 3,
-    name: "Priya Sharma",
-    rating: 4,
-    text: "Loved the family vibe. We went for my father's 60th birthday and they made it very special. Food quality is premium.",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"
+    name: "Arjun M.",
+    role: "Guest",
+    content: "Stunning interiors and impeccable service. From the moment you walk in, you feel like royalty. Perfect for special occasions.",
+    rating: 5
+  },
+  {
+    name: "Sneha K.",
+    role: "Food Enthusiast",
+    content: "A beautifully curated menu. The perfect balance of spices, presentation, and taste. The glassmorphism UI of their app matches the luxury of their restaurant!",
+    rating: 5
   }
 ];
 
 export default function Testimonials() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % reviews.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const next = () => setCurrentIndex((prev) => (prev + 1) % reviews.length);
-  const prev = () => setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
-
   return (
-    <section className="py-24 bg-brand-charcoal text-brand-cream relative overflow-hidden">
-      {/* Decorative bg element */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-brand-burgundy/20 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-gold/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+    <section className="py-32 bg-[#050403] relative overflow-hidden border-t border-brand-gold/10">
+      {/* Background Glow */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-gold/5 rounded-full blur-[120px] pointer-events-none"></div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <h2 className="text-brand-gold font-serif text-4xl md:text-5xl font-bold mb-16">
-          Hamare Khush Grahak
-        </h2>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h4 className="text-brand-gold text-sm uppercase tracking-[0.3em] mb-4 font-semibold">Guest Experiences</h4>
+          <h2 className="font-serif text-4xl sm:text-5xl text-white mb-8 leading-tight drop-shadow-md">
+            Words From Our Royals
+          </h2>
+        </motion.div>
 
-        <div className="relative min-h-[250px] flex items-center justify-center">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.5 }}
-              className="px-8"
-            >
-              <div className="flex justify-center mb-6">
-                {[...Array(reviews[currentIndex].rating)].map((_, i) => (
-                  <Star key={i} className="text-brand-gold fill-current mx-1" size={24} />
-                ))}
-              </div>
-              
-              <p className="text-xl md:text-2xl italic font-light mb-8 leading-relaxed">
-                "{reviews[currentIndex].text}"
-              </p>
-              
-              <div className="flex items-center justify-center">
-                <img 
-                  src={reviews[currentIndex].image} 
-                  alt={reviews[currentIndex].name}
-                  className="w-16 h-16 rounded-full object-cover border-2 border-brand-gold mr-4"
-                />
-                <h4 className="font-serif text-xl font-semibold">{reviews[currentIndex].name}</h4>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Controls */}
-          <button 
-            onClick={prev}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 text-brand-cream/50 hover:text-brand-gold transition-colors"
+        {/* Marquee Container */}
+        <div className="relative w-full overflow-hidden pb-8">
+          {/* Fade edges */}
+          <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#050403] to-transparent z-10"></div>
+          <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#050403] to-transparent z-10"></div>
+          
+          <motion.div 
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            className="flex gap-8 w-max"
           >
-            <ChevronLeft size={40} />
-          </button>
-          <button 
-            onClick={next}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 text-brand-cream/50 hover:text-brand-gold transition-colors"
-          >
-            <ChevronRight size={40} />
-          </button>
+            {/* Double the array to create an infinite loop effect */}
+            {[...reviews, ...reviews].map((review, idx) => (
+              <div 
+                key={idx} 
+                className="w-[350px] md:w-[450px] shrink-0 bg-[#111]/80 backdrop-blur-md border border-white/5 p-8 rounded-3xl shadow-xl hover:border-brand-gold/30 hover:-translate-y-2 transition-all duration-300"
+              >
+                <div className="flex text-brand-gold mb-6">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-gray-300 text-lg font-light leading-relaxed mb-8 italic">
+                  "{review.content}"
+                </p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold font-bold font-serif text-xl border border-brand-gold/40">
+                    {review.name[0]}
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold tracking-wide">{review.name}</h4>
+                    <span className="text-brand-gold/80 text-xs font-bold uppercase tracking-widest">{review.role}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </motion.div>
         </div>
 
-        {/* Dots */}
-        <div className="flex justify-center mt-8 space-x-2">
-          {reviews.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrentIndex(idx)}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                currentIndex === idx ? 'bg-brand-gold' : 'bg-brand-cream/30 hover:bg-brand-cream/50'
-              }`}
-            ></button>
-          ))}
-        </div>
       </div>
     </section>
   );

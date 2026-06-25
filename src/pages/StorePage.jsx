@@ -6,6 +6,8 @@ import About from '../components/sections/About';
 import Menu from '../components/sections/Menu';
 import Reservation from '../components/sections/Reservation';
 import CartDrawer from '../components/customer/CartDrawer';
+import Testimonials from '../components/sections/Testimonials';
+import Preloader from '../components/ui/Preloader';
 import { useMenu } from '../contexts/MenuContext';
 
 export default function StorePage() {
@@ -14,14 +16,15 @@ export default function StorePage() {
   const { menuItems } = useMenu();
 
   return (
-    <div className="bg-brand-dark min-h-screen font-sans text-brand-textLight selection:bg-brand-orange selection:text-white pb-24 md:pb-0">
+    <div className="bg-[#050403] min-h-screen font-sans text-brand-textLight selection:bg-brand-orange selection:text-white pb-24 md:pb-0">
+      <Preloader />
       <Header />
       <MobileBottomNav />
       <CartDrawer />
 
       <Hero />
       <About />
-
+      <Testimonials />
       <Menu />
       <Reservation />
 
