@@ -83,34 +83,40 @@ export default function AdminDashboard() {
   const TabButton = ({ id, icon: Icon, label }) => (
     <button
       onClick={() => setActiveTab(id)}
-      className={`w-full flex items-center gap-3 px-6 py-4 text-left transition-all border-l-4 ${
+      className={`whitespace-nowrap shrink-0 md:w-full flex flex-row items-center gap-2 md:gap-3 px-4 md:px-6 py-3 md:py-4 text-left transition-all border-b-4 md:border-b-0 md:border-l-4 ${
         activeTab === id 
           ? 'bg-brand-dark text-brand-gold border-brand-gold font-bold shadow-md' 
           : 'border-transparent text-gray-500 hover:bg-gray-100 hover:text-brand-dark'
       }`}
     >
-      <Icon size={20} className={activeTab === id ? 'text-brand-gold' : 'text-gray-400'} />
-      <span>{label}</span>
+      <Icon size={18} className={activeTab === id ? 'text-brand-gold' : 'text-gray-400'} />
+      <span className="text-sm md:text-base">{label}</span>
     </button>
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-gray-200 fixed h-full z-20 flex flex-col shadow-sm">
-        <div className="h-20 flex items-center justify-center border-b border-gray-100 bg-brand-dark">
-          <h1 className="font-serif font-bold text-2xl text-brand-gold tracking-widest uppercase">
-            {settings?.restaurantName || 'TANATAN'}
+    <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
+      {/* Sidebar / Topbar */}
+      <aside className="w-full md:w-64 bg-white border-b md:border-r border-gray-200 md:fixed md:h-full z-20 flex flex-col shadow-sm sticky top-0">
+        <div className="h-16 md:h-20 flex items-center justify-between md:justify-center px-4 md:px-0 border-b border-gray-100 bg-brand-dark shrink-0">
+          <h1 className="font-serif font-bold text-xl md:text-2xl text-brand-gold tracking-widest uppercase truncate">
+            {settings?.restaurantName || 'TANATAN'} <span className="text-xs text-white/50 tracking-normal hidden sm:inline">| ADMIN</span>
           </h1>
+          <button 
+            onClick={handleLogout}
+            className="md:hidden flex items-center justify-center gap-2 text-white bg-red-600 hover:bg-red-700 font-medium px-3 py-1.5 rounded-lg transition-colors text-xs"
+          >
+            <LogOut size={14} /> Logout
+          </button>
         </div>
-        <nav className="flex-1 py-6 space-y-1">
+        <nav className="flex flex-row md:flex-col overflow-x-auto md:overflow-visible flex-1 md:py-6 scrollbar-hide md:space-y-1">
           <TabButton id="dashboard" icon={LayoutDashboard} label="Overview" />
-          <TabButton id="menu" icon={UtensilsCrossed} label="Menu Management" />
+          <TabButton id="menu" icon={UtensilsCrossed} label="Menu" />
           <TabButton id="categories" icon={Tags} label="Categories" />
-          <TabButton id="orders" icon={ClipboardList} label="Orders & Bookings" />
-          <TabButton id="settings" icon={Settings} label="Site Settings" />
+          <TabButton id="orders" icon={ClipboardList} label="Orders" />
+          <TabButton id="settings" icon={Settings} label="Settings" />
         </nav>
-        <div className="p-4 border-t border-gray-100 bg-gray-50">
+        <div className="hidden md:block p-4 border-t border-gray-100 bg-gray-50">
           <button onClick={() => navigate('/')} className="w-full mb-3 text-center text-sm font-bold tracking-wider text-brand-dark hover:text-brand-gold uppercase transition-colors">
             View Live Site
           </button>
@@ -124,7 +130,7 @@ export default function AdminDashboard() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 ml-64 p-8 bg-gray-50/50">
+      <main className="flex-1 md:ml-64 p-4 md:p-8 bg-gray-50/50 w-full overflow-x-hidden">
         
         {/* DASHBOARD TAB */}
         {activeTab === 'dashboard' && (
@@ -318,11 +324,11 @@ export default function AdminDashboard() {
         {/* MENU TAB */}
         {activeTab === 'menu' && (
           <div className="animate-fade-in max-w-6xl mx-auto">
-            <div className="flex justify-between items-center mb-8">
-              <h2 className="text-3xl font-bold text-brand-dark">Menu Management</h2>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
+              <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark">Menu Management</h2>
               <button 
                 onClick={() => setShowAddForm(!showAddForm)}
-                className="flex items-center gap-2 bg-brand-gold text-brand-dark px-6 py-3 rounded-xl font-bold hover:bg-[#e64a19] hover:text-white transition-all shadow-md hover:shadow-lg"
+                className="w-full sm:w-auto flex justify-center items-center gap-2 bg-brand-gold text-brand-dark px-6 py-3 rounded-xl font-bold hover:bg-[#e64a19] hover:text-white transition-all shadow-md"
               >
                 {showAddForm ? 'Cancel' : <><Plus size={20} /> Add New Dish</>}
               </button>
