@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
+import { useSettings } from '../../contexts/SettingsContext';
 
 export default function About() {
+  const { settings } = useSettings();
   return (
     <section id="about" className="py-32 relative bg-brand-dark overflow-hidden border-t border-brand-gold/10">
       {/* Decorative background blur */}
@@ -10,7 +12,7 @@ export default function About() {
         <motion.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-20px" }}
           transition={{ duration: 0.5 }}
           className="relative h-[500px] sm:h-[600px] overflow-hidden group rounded-sm"
         >
@@ -19,13 +21,13 @@ export default function About() {
             initial={{ clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)" }}
             whileInView={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
             transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-20px" }}
             className="absolute inset-0 z-10"
           >
             <div className="absolute inset-0 bg-brand-dark/20 z-10 group-hover:bg-transparent transition-colors duration-500"></div>
             <img 
-              src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" 
-              alt="Ambience" 
+              src={settings?.aboutImage || "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80"} 
+              alt="Our Story" 
               className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
             />
           </motion.div>

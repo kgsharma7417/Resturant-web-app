@@ -24,26 +24,7 @@ export default function CartDrawer() {
 
   return (
     <>
-      {/* Floating Bottom Bar (Shows when items exist & drawer is closed) */}
-      <AnimatePresence>
-        {totalItems > 0 && !isCartOpen && (
-          <motion.div 
-            initial={{ y: 100 }}
-            animate={{ y: 0 }}
-            exit={{ y: 100 }}
-            onClick={() => setIsCartOpen(true)}
-            className="fixed bottom-20 sm:bottom-6 left-4 right-4 sm:left-1/2 sm:-translate-x-1/2 sm:w-[400px] bg-brand-orange text-white rounded-xl shadow-[0_10px_30px_rgba(255,87,34,0.3)] p-4 flex items-center justify-between cursor-pointer z-40 hover:bg-[#E64A19] transition-colors"
-          >
-            <div className="flex flex-col">
-              <span className="font-bold text-sm">{totalItems} ITEM{totalItems > 1 ? 'S' : ''}</span>
-              <span className="font-bold text-lg">₹{cartTotal} <span className="text-xs font-normal opacity-80">plus taxes</span></span>
-            </div>
-            <div className="flex items-center gap-2 font-bold uppercase tracking-wide">
-              View Cart <ShoppingBag size={20} />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Removed Redundant Floating Bottom Bar */}
 
       {/* Cart Drawer Popup */}
       <AnimatePresence>

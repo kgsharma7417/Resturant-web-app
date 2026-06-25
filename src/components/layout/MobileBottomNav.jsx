@@ -2,6 +2,8 @@ import { Home, Menu as MenuIcon, ShoppingBag, User } from 'lucide-react';
 import { useCart } from '../../contexts/CartContext';
 import { motion } from 'framer-motion';
 
+import { Link } from 'react-router-dom';
+
 export default function MobileBottomNav() {
   const { cart, setIsCartOpen } = useCart();
   
@@ -34,10 +36,10 @@ export default function MobileBottomNav() {
           <span className="text-[10px] font-medium uppercase tracking-wider">Cart</span>
         </button>
         
-        <a href="/admin" className="flex flex-col items-center gap-1 text-brand-textLight hover:text-brand-orange transition-colors">
+        <Link to="/admin" className="flex flex-col items-center gap-1 text-brand-textLight hover:text-brand-orange transition-colors">
           <User size={22} />
           <span className="text-[10px] font-medium uppercase tracking-wider">Admin</span>
-        </a>
+        </Link>
       </div>
     </div>
   );

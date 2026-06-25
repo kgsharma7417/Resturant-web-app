@@ -18,6 +18,7 @@ export default function AdminDashboard() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [isUploadingHero, setIsUploadingHero] = useState(false);
+  const [isUploadingAbout, setIsUploadingAbout] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');
   
   const [formData, setFormData] = useState({
@@ -27,7 +28,8 @@ export default function AdminDashboard() {
   const [settingsForm, setSettingsForm] = useState({
     restaurantName: '',
     tagline: '',
-    heroImage: ''
+    heroImage: '',
+    aboutImage: ''
   });
 
   useEffect(() => {
@@ -35,7 +37,8 @@ export default function AdminDashboard() {
       setSettingsForm({
         restaurantName: settings.restaurantName || '',
         tagline: settings.tagline || '',
-        heroImage: settings.heroImage || ''
+        heroImage: settings.heroImage || '',
+        aboutImage: settings.aboutImage || ''
       });
     }
   }, [settings]);
@@ -243,6 +246,60 @@ export default function AdminDashboard() {
                     {settingsForm.heroImage && (
                       <div className="w-48 h-32 rounded-xl overflow-hidden border-2 border-gray-200 shadow-inner flex-shrink-0">
                         <img src={settingsForm.heroImage} alt="Hero Preview" className="w-full h-full object-cover" />
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider flex items-center gap-2">
+                    <ImageIcon size={18} /> Our Story (About) Image
+                  </label>
+                  
+                  <div className="flex gap-4 items-start">
+                    <div className="flex-1">
+                      <input 
+                        type="text" 
+                        value={settingsForm.aboutImage} 
+                        onChange={e => setSettingsForm({...settingsForm, aboutImage: e.target.value})} 
+                        className="w-full border-2 border-gray-200 rounded-xl p-3 focus:ring-0 focus:border-brand-gold outline-none transition-all mb-3" 
+                        placeholder="Image URL" 
+                        required
+                      />
+                      
+                      <div className="flex items-center gap-3">
+                        <label className="cursor-pointer bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+                          <span>Upload New Image</span>
+                          <input 
+                            type="file" 
+                            accept="image/*" 
+                            className="hidden"
+                            onChange={async (e) => {
+                              const file = e.target.files[0];
+                              if (file) {
+                                setIsUploadingAbout(true);
+                                try {
+                                  const storageRef = ref(storage, `site-images/${Date.now()}_${file.name}`);
+                                  const snapshot = await uploadBytes(storageRef, file);
+                                  const downloadURL = await getDownloadURL(snapshot.ref);
+                                  setSettingsForm({...settingsForm, aboutImage: downloadURL});
+                                } catch (err) {
+                                  console.error('Upload failed:', err);
+                                  toast.error('Failed to upload image');
+                                } finally {
+                                  setIsUploadingAbout(false);
+                                }
+                              }
+                            }}
+                          />
+                        </label>
+                        {isUploadingAbout && <span className="text-sm font-bold text-brand-gold animate-pulse">Uploading...</span>}
+                      </div>
+                    </div>
+                    
+                    {settingsForm.aboutImage && (
+                      <div className="w-48 h-32 rounded-xl overflow-hidden border-2 border-gray-200 shadow-inner flex-shrink-0">
+                        <img src={settingsForm.aboutImage} alt="About Preview" className="w-full h-full object-cover" />
                       </div>
                     )}
                   </div>
