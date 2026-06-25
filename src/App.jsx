@@ -4,6 +4,7 @@ import { Toaster } from 'sonner';
 import { MenuProvider } from './contexts/MenuContext';
 import { CartProvider } from './contexts/CartContext';
 import { OrdersProvider } from './contexts/OrdersContext';
+import { SettingsProvider } from './contexts/SettingsContext';
 
 import StorePage from './pages/StorePage';
 import AdminLoginPage from './pages/AdminLoginPage';
@@ -12,8 +13,9 @@ import CustomCursor from './components/ui/CustomCursor';
 
 function App() {
   return (
-    <OrdersProvider>
-      <MenuProvider>
+    <SettingsProvider>
+      <OrdersProvider>
+        <MenuProvider>
         <CartProvider>
           <BrowserRouter>
           <CustomCursor />
@@ -29,6 +31,7 @@ function App() {
       </CartProvider>
     </MenuProvider>
     </OrdersProvider>
+    </SettingsProvider>
   );
 }
 
